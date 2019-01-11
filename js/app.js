@@ -18,6 +18,7 @@ inputEmail.addEventListener('blur', onFormInputBlur);
 inputSubject.addEventListener('blur', onFormInputBlur);
 inputMessage.addEventListener('blur', onFormInputBlur);
 resetBtn.addEventListener('click', onResetBtnClick);
+form.addEventListener('submit', onFormSubmit);
 
 /* 
     functions
@@ -66,4 +67,27 @@ function validateEmail(email) {
 
 function onResetBtnClick() {
     form.reset();
+}
+
+function onFormSubmit(evt) {
+    evt.preventDefault();
+
+    const spinner = document.querySelector('#spinner');
+    spinner.style.display = 'block';
+
+    const emailSpinner = document.createElement('img');
+    emailSpinner.src = 'img/mail.gif';
+    emailSpinner.style.display = 'block';
+
+    setTimeout(function () {
+        spinner.style.display = 'none';
+
+        document.querySelector('#loaders').appendChild(emailSpinner);
+
+        setTimeout(function () {
+            form.reset();
+            emailSpinner.remove();
+        }, 3000);
+    }, 3000);
+
 }
